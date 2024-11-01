@@ -21,15 +21,15 @@ namespace HPManager.service.Infrastructure.Managers
         }
         public async Task<Tratamiento> CrearTratamientoParaUnEstudiante(NewTratamientoDto newTratamiento)
         {
-            return await _tratamientosRepository.CrearTratamientoParaUnEstudiante(newTratamiento);
+            return await _tratamientosRepository.CrearTratamientoParaUnEstudianteAsync(newTratamiento);
         }
         public async Task<UpdateTratamientoDto> EditarTratamientoParaUnEstudiante(UpdateTratamientoDto newTratamiento, int tratamientoID)
         {
-            return await _tratamientosRepository.EditarTratamientoParaUnEstudiante(newTratamiento, tratamientoID);
+            return await _tratamientosRepository.EditarTratamientoParaUnEstudianteAsync(newTratamiento, tratamientoID);
         }
         public async Task<int> DeleteTratamientoParaUnEstudiante(int tratamientoID)
         {
-            return await _tratamientosRepository.DeleteTratamientoParaUnEstudiante(tratamientoID);
+            return await _tratamientosRepository.DeleteTratamientoParaUnEstudianteAsync(tratamientoID);
         }
     }
 }

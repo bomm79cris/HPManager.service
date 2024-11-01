@@ -1,6 +1,6 @@
 ﻿namespace HPManager.service.Infrastructure.Enums
 {
-    public enum EstadoCita
+    public enum EstadoCitaEnum
     {
         SOLICITADA = 1,
         APROBADA = 2,

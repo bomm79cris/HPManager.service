@@ -7,8 +7,8 @@ namespace HPManager.service.Infrastructure.Repositories.IRepositories
     {
         public Task<ICollection<GetTratamientoDto>> GetTratamientosByEstudianteIDAsync (int estudianteID);
         public Task<int> CambiarEstadoDeUnTratamientoAsync(int newEstadoId, int tratamientoId);
-        public Task<Tratamiento> CrearTratamientoParaUnEstudiante(NewTratamientoDto newTratamiento);
-        public Task<UpdateTratamientoDto> EditarTratamientoParaUnEstudiante(UpdateTratamientoDto newTratamiento, int tratamientoID);
-        public Task<int> DeleteTratamientoParaUnEstudiante(int tratamientoID);
+        public Task<Tratamiento> CrearTratamientoParaUnEstudianteAsync(NewTratamientoDto newTratamiento);
+        public Task<UpdateTratamientoDto> EditarTratamientoParaUnEstudianteAsync(UpdateTratamientoDto newTratamiento, int tratamientoID);
+        public Task<int> DeleteTratamientoParaUnEstudianteAsync(int tratamientoID);
     }
 }
