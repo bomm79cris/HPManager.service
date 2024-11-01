@@ -37,6 +37,7 @@ namespace HPManager.service.Infrastructure.Repositories
                 Observaciones = newObservation.Observaciones
             };
             await _context.AddAsync(Observacion);
+            await _context.SaveChangesAsync();
             return newObservation;
            
         }

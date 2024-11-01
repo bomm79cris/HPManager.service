@@ -68,6 +68,7 @@ namespace HPManager.service.Infrastructure.Repositories
         {
           
             await _context.AddAsync(newCita);
+            await _context.SaveChangesAsync();
             return newCita;
 
         }

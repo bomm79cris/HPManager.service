@@ -16,7 +16,7 @@ namespace HPManager.service.Infrastructure.Models
         public DateTime CreatedAt { get; set; } 
 
         [ForeignKey(nameof(EstudianteID))]
-        public virtual Usuario Usuario { get; set; }
+        public virtual Estudiante Estudiante { get; set; }
         [ForeignKey(nameof(PsicologoID))]
         public virtual Psicologo Psicologo { get; set; }
     }

@@ -51,6 +51,7 @@ namespace HPManager.service.Infrastructure.Repositories
             };
 
             await _context.AddAsync( tratamiento );
+            await _context.SaveChangesAsync();
             return tratamiento;
         }
         public async Task<UpdateTratamientoDto> EditarTratamientoParaUnEstudianteAsync(UpdateTratamientoDto newTratamiento, int tratamientoID)
