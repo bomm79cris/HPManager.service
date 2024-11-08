@@ -13,7 +13,6 @@ namespace HPManager.service.Infrastructure.Models
         public int RolId { get; set; }
         public string TipoUsuario { get; set; }
         [InverseProperty(nameof(Usuario.Rol))]
-
         public virtual ICollection<Usuario> Usuarios { get; set; }
     }
 }
