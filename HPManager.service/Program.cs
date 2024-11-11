@@ -6,12 +6,21 @@ using HPManager.service.Infrastructure.Repositories.IRepositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var conectionString = builder.Configuration.GetConnectionString("ApplicationDbContext");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(conectionString).UseLazyLoadingProxies());
-
+builder.Services.AddCors(options =>
+    {
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()   
+              .AllowAnyMethod()   
+              .AllowAnyHeader();  
+   });
+});
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -33,6 +42,7 @@ builder.Services.AddScoped<ICitasManager, CitasManager>();
 builder.Services.AddScoped<ITratamientosManager, TratamientosManager>();
 builder.Services.AddScoped<IObservacionesManager, ObservacionesManager>();
 builder.Services.AddScoped<IAuthManager, AuthManager>();
+builder.Services.AddScoped<IUsuarioManager, UsuarioManager>();
 //Repositories
 builder.Services.AddScoped<ICitasRepository, CitasRepository>();
 builder.Services.AddScoped<ITratamientosRepository, TratamientosRepository>();
@@ -54,10 +64,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseMiddleware<ExceptionMiddleware>();
 app.UseAuthorization();
 
 app.UseAuthentication();
+app.UseCors("AllowAll"); 
 
 app.MapControllers();
 

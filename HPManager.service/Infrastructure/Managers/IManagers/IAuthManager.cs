@@ -2,6 +2,6 @@
 {
     public interface IAuthManager
     {
-        string Authenticate(string email, string password);
+        public Task<string> Authenticate(string email, string password);
     }
 }

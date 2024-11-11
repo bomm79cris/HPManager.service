@@ -17,10 +17,13 @@ namespace HPManager.service.Infrastructure.Managers
             _configuration = configuration;
         }
 
-        public string Authenticate(string email, string password)
+        public async Task<string> Authenticate(string email, string password)
         {
-            var user = _userRepository.GetUserByEmailAndPassword(email, password);
-            if (user == null) return null;
+            var user = await _userRepository.GetUserByEmailAndPassword(email, password);
+            if (user == null)
+            {
+                throw new HPException("Credenciales incorrectas");
+            }
 
             var claims = new[]
             {
@@ -32,6 +35,7 @@ namespace HPManager.service.Infrastructure.Managers
                 new Claim("RolNombre", user.Rol.TipoUsuario),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
+
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(
@@ -39,7 +43,9 @@ namespace HPManager.service.Infrastructure.Managers
                 expires: DateTime.Now.AddMinutes(Convert.ToDouble(_configuration["Jwt:ExpirationMinutes"])),
                 signingCredentials: creds);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            // Crear el objeto JSON con solo el token
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+            return tokenString;
         }
     }
 }
