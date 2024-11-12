@@ -8,6 +8,6 @@
         public string Grado { get; set; }
         public string Genero { get; set; }
         public int Edad { get; set; }
-        public string NombreCompleto { get;set; }
+        public string NombreEstudiante { get;set; }
     }
 }
