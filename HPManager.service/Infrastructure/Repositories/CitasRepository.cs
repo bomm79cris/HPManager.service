@@ -18,16 +18,17 @@ namespace HPManager.service.Infrastructure.Repositories
             return await _context.Citas.Where(cita => cita.EstudianteId == estudianteId)
                 .Select(cita => new GetCitasDto
                     {
+                        CitaId = cita.CitaID,
                         EstudianteId = estudianteId,
                         DebeIrPadre = cita.DebeIrPadre,
                         EstadoID = cita.EstadoID,
                         FechaHora = cita.FechaHora,
                         Motivo = cita.Motivo,
                         NombreEstado = cita.EstadoCita.Estado,
-                        NombreEstudiante = cita.Estudiante.Usuario.Nombre,
+                        NombreEstudiante = cita.Estudiante.Usuario.Nombre+" "+ cita.Estudiante.Usuario.Apellido,
                         PsicologoID = cita.PsicologoID,
-                        NombrePsicologo = cita.Psicologo.Usuario.Nombre,
-                        SolicitadoPor = cita.Usuario.Nombre,
+                        NombrePsicologo = cita.Psicologo.Usuario.Nombre + " " + cita.Psicologo.Usuario.Apellido,
+                        SolicitadoPor = cita.Usuario.Nombre+" "+cita.Usuario.Apellido,
                         EsCancelable = cita.CreateBy == estudianteId,
                         Descripcion = cita.Descripcion
 
@@ -40,16 +41,17 @@ namespace HPManager.service.Infrastructure.Repositories
             return await _context.Citas.Where(cita => cita.PsicologoID == psicologoId)
                .Select(cita => new GetCitasDto
                {
+                   CitaId = cita.CitaID,
                    EstudianteId = cita.EstudianteId,
                    DebeIrPadre = cita.DebeIrPadre,
                    EstadoID = cita.EstadoID,
                    FechaHora = cita.FechaHora,
                    Motivo = cita.Motivo,
                    NombreEstado = cita.EstadoCita.Estado,
-                   NombreEstudiante = cita.Estudiante.Usuario.Nombre,
-                   PsicologoID = psicologoId,
-                   NombrePsicologo = cita.Psicologo.Usuario.Nombre,
-                   SolicitadoPor = cita.Usuario.Nombre,
+                   NombreEstudiante = cita.Estudiante.Usuario.Nombre + " " + cita.Estudiante.Usuario.Apellido,
+                   PsicologoID = cita.PsicologoID,
+                   NombrePsicologo = cita.Psicologo.Usuario.Nombre + " " + cita.Psicologo.Usuario.Apellido,
+                   SolicitadoPor = cita.Usuario.Nombre + " " + cita.Usuario.Apellido,
                    EsCancelable = cita.CreateBy == psicologoId,
                    Descripcion = cita.Descripcion
 

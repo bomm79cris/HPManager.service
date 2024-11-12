@@ -66,8 +66,8 @@ namespace HPManager.service.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> UpdateCita(int citaID, [FromBody] UpdateCitaDto updateCita)
         {
-            await _citasManager.UpdateCitaByIdAsync(citaID, updateCita);
-            return Ok();
+            var cita=await _citasManager.UpdateCitaByIdAsync(citaID, updateCita);
+            return Ok(cita);
         }
 
     }

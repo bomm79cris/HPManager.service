@@ -23,6 +23,10 @@ namespace HPManager.service.Infrastructure.Managers
         {
             return await _userRepository.GetEstudianteById(estudianteID);
         }
+        public async Task<ICollection<PsicologoDto>> GetPsicologosAll()
+        {
+            return await _userRepository.GetPsicologosAll();
+        }
 
     }
 }

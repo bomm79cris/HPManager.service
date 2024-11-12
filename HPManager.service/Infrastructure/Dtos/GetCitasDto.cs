@@ -2,6 +2,7 @@
 {
     public class GetCitasDto
     {
+        public int CitaId { get; set; }
         public int EstudianteId { get; set; }
         public string NombreEstudiante { get; set; }
         public int PsicologoID { get; set; }

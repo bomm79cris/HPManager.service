@@ -36,6 +36,7 @@ namespace HPManager.service.Infrastructure.Repositories
                 Edad = estudiante.Usuario.Edad,
                 Genero = estudiante.Usuario.Genero,
                 Grado = estudiante.Grado,
+                NombreCompleto = estudiante.Usuario.Nombre +" "+estudiante.Usuario.Apellido
             }).ToListAsync();
         }
         public async Task<ICollection<EstudianteDto>> GetEstudiantesByPadresId(int padreID)
@@ -50,7 +51,21 @@ namespace HPManager.service.Infrastructure.Repositories
                     Edad = estudiante.Usuario.Edad,
                     Genero = estudiante.Usuario.Genero,
                     Grado = estudiante.Grado,
+                    NombreCompleto = estudiante.Usuario.Nombre + " " + estudiante.Usuario.Apellido
+
                 }).ToListAsync();
+        }
+        public async Task<ICollection<PsicologoDto>> GetPsicologosAll()
+        {
+            return await _context.Psicologos.Select(psicologo =>
+                    new PsicologoDto
+                    {
+                        Especializacion = psicologo.Especialidad,
+                        PsicologoID = psicologo.PsicologoID,
+                        NombreCompleto = psicologo.Usuario.Nombre + " " + psicologo.Usuario.Apellido
+                    }
+
+                ).ToListAsync();
         }
         public async Task<EstudianteDto> GetEstudianteById(int estudianteID)
         {
@@ -64,6 +79,8 @@ namespace HPManager.service.Infrastructure.Repositories
                     Edad = estudiante.Usuario.Edad,
                     Genero = estudiante.Usuario.Genero,
                     Grado = estudiante.Grado,
+                    NombreCompleto = estudiante.Usuario.Nombre + " " + estudiante.Usuario.Apellido
+
                 }).FirstOrDefaultAsync();
         }
     }
