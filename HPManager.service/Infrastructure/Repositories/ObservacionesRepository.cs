@@ -21,7 +21,7 @@ namespace HPManager.service.Infrastructure.Repositories
                     Fecha = observacion.Fecha,
                     Descripcion = observacion.Descripcion,
                     Observaciones = observacion.Observaciones,
-                    NombrePsicologo = observacion.Psicologo.Usuario.Nombre
+                    NombrePsicologo = observacion.Psicologo.Usuario.Nombre + " " + observacion.Psicologo.Usuario.Apellido
 
                 })
                 .ToListAsync();
@@ -34,7 +34,8 @@ namespace HPManager.service.Infrastructure.Repositories
                 PsicologoID = newObservation.PsicologoID,
                 Descripcion = newObservation.Descripcion,
                 Fecha = newObservation.Fecha,
-                Observaciones = newObservation.Observaciones
+                Observaciones = newObservation.Observaciones,
+                created_at = DateTime.Now
             };
             await _context.AddAsync(Observacion);
             await _context.SaveChangesAsync();

@@ -33,5 +33,14 @@ namespace HPManager.service.Controllers
             var estudiantes = await _usuarioManager.GetEstudiantesAllAsync();
             return Ok(estudiantes);
         }
+        [HttpGet("estudiante/{estudianteID}")]
+        [ProducesResponseType(typeof(EstudianteDto), (int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> GetEstudianteByID(int estudianteID)
+        {
+            var estudiantes = await _usuarioManager.GetEstudianteById(estudianteID);
+            return Ok(estudiantes);
+        }
     }
 }

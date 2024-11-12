@@ -19,5 +19,10 @@ namespace HPManager.service.Infrastructure.Managers
         {
             return await _userRepository.GetEstudiantesByPadresId(padreID);
         }
+        public  async Task<EstudianteDto> GetEstudianteById(int estudianteID)
+        {
+            return await _userRepository.GetEstudianteById(estudianteID);
+        }
+
     }
 }

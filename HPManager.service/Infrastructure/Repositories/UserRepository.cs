@@ -52,5 +52,19 @@ namespace HPManager.service.Infrastructure.Repositories
                     Grado = estudiante.Grado,
                 }).ToListAsync();
         }
+        public async Task<EstudianteDto> GetEstudianteById(int estudianteID)
+        {
+            return await _context.Estudiantes.Where(estudiante => estudiante.EstudianteID == estudianteID)
+                .Select(estudiante =>
+                new EstudianteDto
+                {
+                    EstudianteId = estudiante.EstudianteID,
+                    EstudianteName = estudiante.Usuario.Nombre,
+                    EstudianteApellido = estudiante.Usuario.Apellido,
+                    Edad = estudiante.Usuario.Edad,
+                    Genero = estudiante.Usuario.Genero,
+                    Grado = estudiante.Grado,
+                }).FirstOrDefaultAsync();
+        }
     }
 }

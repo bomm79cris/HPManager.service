@@ -6,5 +6,7 @@ namespace HPManager.service.Infrastructure.Managers.IManagers
     {
         public Task<ICollection<EstudianteDto>> GetEstudiantesAllAsync();
         public Task<ICollection<EstudianteDto>> GetEstudiantesByPadresId(int padreID);
+        public Task<EstudianteDto> GetEstudianteById(int estudianteID);
+
     }
 }

@@ -15,15 +15,16 @@ namespace HPManager.service.Infrastructure.Repositories
         }
         public async Task<ICollection<GetTratamientoDto>> GetTratamientosByEstudianteIDAsync(int estudianteID)
         {
-            return await _context.Tratamientos.Where(observacion => observacion.EstudianteID == estudianteID)
-               .Select(observacion => new GetTratamientoDto
+            return await _context.Tratamientos.Where(tratamiento => tratamiento.EstudianteID == estudianteID)
+               .Select(tratamiento => new GetTratamientoDto
                {
-                   Description = observacion.Description,
-                   EstadoID = observacion.EstadoID,
-                   FechaFin = observacion.FechaFin,
-                   FechaInicio = observacion.FechaInicio,
-                   NombreEstado = observacion.EstadoTratamiento.Estado,
-                   Titulo = observacion.Titulo
+                   TratamientoID = tratamiento.TratamientoID,
+                   Description = tratamiento.Description,
+                   EstadoID = tratamiento.EstadoID,
+                   FechaFin = tratamiento.FechaFin,
+                   FechaInicio = tratamiento.FechaInicio,
+                   NombreEstado = tratamiento.EstadoTratamiento.Estado,
+                   Titulo = tratamiento.Titulo
 
                })
                .ToListAsync();
@@ -45,7 +46,8 @@ namespace HPManager.service.Infrastructure.Repositories
                 FechaInicio = newTratamiento.FechaInicio,
                 FechaFin = newTratamiento.FechaFin,
                 PsicologoID = newTratamiento.PsicologoID,
-                Titulo = newTratamiento.Titulo
+                Titulo = newTratamiento.Titulo,
+                created_at = DateTime.Now
 
 
             };
