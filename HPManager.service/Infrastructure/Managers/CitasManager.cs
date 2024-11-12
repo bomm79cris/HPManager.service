@@ -25,7 +25,7 @@ namespace HPManager.service.Infrastructure.Managers
         {
             return await _citasRepository.DeleteCitasByIdAsync(citaId);
         }
-        public async Task<CitasDto> CreateNewCitaAsync(CitasDto citasDto)
+        public async Task<Cita> CreateNewCitaAsync(CitasDto citasDto)
         {
             var newCita = new Cita
             {
@@ -40,8 +40,8 @@ namespace HPManager.service.Infrastructure.Managers
                 CreatedAt = DateTime.Now
 
             };
-            await _citasRepository.CreateNewCitaAsync(newCita);
-            return citasDto;
+            
+            return await _citasRepository.CreateNewCitaAsync(newCita); 
         }
         public async Task<int> CambiarEstadoCitaAsync(int citaId, int newEstadoCitaId)
         {

@@ -39,8 +39,8 @@ namespace HPManager.service.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> CrearTratamientoParaUnEstudiante([FromBody] NewTratamientoDto tratamiento)
         {
-            await _tratamientosManager.CrearTratamientoParaUnEstudiante(tratamiento);
-            return Ok();
+           var tratamientos=await _tratamientosManager.CrearTratamientoParaUnEstudiante(tratamiento);
+            return Ok(tratamientos);
         }
         [HttpPut("update/{tratamientoID}")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]

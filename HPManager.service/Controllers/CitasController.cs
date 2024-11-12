@@ -48,8 +48,8 @@ namespace HPManager.service.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> CreateNewCita([FromBody] CitasDto newCita)
         {
-            await _citasManager.CreateNewCitaAsync(newCita);
-            return Ok();
+            var cita=await _citasManager.CreateNewCitaAsync(newCita);
+            return Ok(cita);
         }
         [HttpPut("state-cita/{citaID}")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
