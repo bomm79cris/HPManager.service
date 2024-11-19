@@ -2,9 +2,9 @@
 {
     public enum Roles
     {
-        PADRE = 1,
-        ESTUDIANTE = 2,
-        DOCENTE = 3,
-        PSICOLOGO = 4
+        PADRE = 2,
+        ESTUDIANTE = 3,
+        DOCENTE = 4,
+        PSICOLOGO = 1
     }
 }
