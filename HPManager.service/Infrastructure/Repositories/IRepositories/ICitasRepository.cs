@@ -11,5 +11,6 @@ namespace HPManager.service.Infrastructure.Repositories.IRepositories
         public Task<Cita> CreateNewCitaAsync(Cita citasDto);
         public Task<int> CambiarEstadoCitaAsync(int citaId, int newEstadoCitaId);
         public Task<UpdateCitaDto> UpdateCitaByIdAsync(int citaId,UpdateCitaDto updateCitaDto);
+        public  Task<Cita> GetCitaById(int citaId);
     }
 }

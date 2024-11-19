@@ -10,5 +10,6 @@ namespace HPManager.service.Infrastructure.Repositories
         public Task<ICollection<EstudianteDto>> GetEstudiantesByPadresId(int padreID);
         public Task<EstudianteDto> GetEstudianteById(int estudianteID);
         public Task<ICollection<PsicologoDto>> GetPsicologosAll();
+        public  Task<Usuario> GetUsuarioById(int usuarioId);
     }
 }

@@ -76,14 +76,14 @@ namespace HPManager.service.Infrastructure.Repositories
         }
         public async Task<int> CambiarEstadoCitaAsync(int citaId, int newEstadoCitaId)
         {
-            var cita = GetCitaById(citaId);
+            var cita = await GetCitaById(citaId);
             cita.EstadoID = newEstadoCitaId;
             return await _context.SaveChangesAsync();
 
         }
         public async Task<UpdateCitaDto> UpdateCitaByIdAsync(int citaId, UpdateCitaDto updateCitaDto)
         {
-            var cita = GetCitaById(citaId);
+            var cita = await GetCitaById(citaId);
             cita.FechaHora = updateCitaDto.FechaHora;
             cita.DebeIrPadre = updateCitaDto.DebeIrPadre;
             cita.Descripcion = updateCitaDto.Descripcion;
@@ -95,9 +95,9 @@ namespace HPManager.service.Infrastructure.Repositories
             
         }
 
-        private  Cita GetCitaById (int citaId)
+        public async Task<Cita> GetCitaById (int citaId)
         {
-            return  _context.Citas.Where(cita => cita.CitaID == citaId).FirstOrDefault();
+            return  await _context.Citas.Where(cita => cita.CitaID == citaId).FirstOrDefaultAsync();
         }
     }
 }

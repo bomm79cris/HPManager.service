@@ -83,5 +83,9 @@ namespace HPManager.service.Infrastructure.Repositories
 
                 }).FirstOrDefaultAsync();
         }
+        public async Task<Usuario> GetUsuarioById(int usuarioId)
+        {
+            return await _context.Usuarios.Where(u=>u.UsuarioId==usuarioId).FirstOrDefaultAsync();
+        }
     }
 }
