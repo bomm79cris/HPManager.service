@@ -33,7 +33,7 @@ namespace HPManager.service.Infrastructure.Repositories
 
         public async Task<List<ComportamientoDto>> ObtenerComportamientosPorEstudianteAsync(int estudianteId,int userID)
         {
-            return await _context.Comportamientos
+            var com= await _context.Comportamientos
                 .Where(c => c.EstudianteID == estudianteId).Select(c=>
                 new ComportamientoDto
                 {
@@ -42,11 +42,12 @@ namespace HPManager.service.Infrastructure.Repositories
                     Fecha = c.Fecha,
                     DocenteID= c.DocenteID,
                     Observaciones = c.Observaciones,
-                    DocenteFullName = c.Docente.Usuario.Nombre + " " + c.Docente.Usuario.Nombre,
+                    DocenteFullName = c.Docente.Usuario.Nombre + " " + c.Docente.Usuario.Apellido,
                     SoyElCreador = (c.DocenteID==userID)
 
                 })
                 .ToListAsync();
+            return com;
         }
         public async Task<Comportamiento> UpdateComportamiento(int idComportamiento, string newObservation)
         {

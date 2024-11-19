@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace HPManager.service.Infrastructure.Models
 {
-    [Table("Comportamiento")]
+    [Table("Comportamientos")]
     public class Comportamiento
     {
         [Key]
