@@ -43,11 +43,17 @@ builder.Services.AddScoped<ITratamientosManager, TratamientosManager>();
 builder.Services.AddScoped<IObservacionesManager, ObservacionesManager>();
 builder.Services.AddScoped<IAuthManager, AuthManager>();
 builder.Services.AddScoped<IUsuarioManager, UsuarioManager>();
+builder.Services.AddScoped<IComportamientosManager,ComportamientosManager>();
+builder.Services.AddScoped<ISesionesManager, SesionesManager>();
+builder.Services.AddScoped<IRecomendacionesManager,RecomendacionesManager>();
 //Repositories
 builder.Services.AddScoped<ICitasRepository, CitasRepository>();
 builder.Services.AddScoped<ITratamientosRepository, TratamientosRepository>();
 builder.Services.AddScoped<IObservacionesRepository, ObservacionesRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IComportamientosRepository, ComportamientosRepository>();
+builder.Services.AddScoped<ISesionesRepository,SesionRepository>();
+builder.Services.AddScoped<IRecomendacionesRepository,RecomendacionesRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
