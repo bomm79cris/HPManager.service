@@ -6,13 +6,7 @@ namespace HPManager.service.Infrastructure.Models
     [Table("Usuarios")]
     public class Usuario
     {
-        public Usuario() {
-            Docentes = new HashSet<Docente>();
-            Estudiantes = new HashSet<Estudiante>();
-            Psicologos = new HashSet<Psicologo>();
-            PadresDeFamilia = new HashSet<PadreDeFamilia>();
-            CitasCreadas = new HashSet<Cita>();
-        }
+     
         [Key]
         public int UsuarioId { get; set; }
         public string Nombre { get; set; }
@@ -26,13 +20,13 @@ namespace HPManager.service.Infrastructure.Models
         [ForeignKey(nameof(RolID))]
         public virtual RolUsuario Rol { get; set; }
         [InverseProperty(nameof(Docente.Usuario))]
-        public virtual ICollection<Docente> Docentes { get; set; }
+        public virtual Docente Docente { get; set; }
         [InverseProperty(nameof(Estudiante.Usuario))]
-        public virtual ICollection<Estudiante> Estudiantes { get; set; }
+        public virtual Estudiante Estudiante { get; set; }
         [InverseProperty(nameof(Psicologo.Usuario))]
-        public virtual ICollection<Psicologo> Psicologos { get; set; }
+        public virtual Psicologo Psicologos { get; set; }
         [InverseProperty(nameof(PadreDeFamilia.Usuario))]
-        public virtual ICollection<PadreDeFamilia> PadresDeFamilia { get; set; }
+        public virtual PadreDeFamilia PadreDeFamilia { get; set; }
         [InverseProperty(nameof(Cita.Usuario))]
         public virtual ICollection<Cita> CitasCreadas { get; set; }
 
