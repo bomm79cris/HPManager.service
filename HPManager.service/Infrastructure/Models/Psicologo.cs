@@ -26,7 +26,7 @@ namespace HPManager.service.Infrastructure.Models
         public virtual ICollection<Recomendation> Recomendaciones { get; set;}
         [InverseProperty(nameof(Tratamiento.Psicologo))]
         public virtual ICollection<Tratamiento> Tratamientos { get; set; }
-        [InverseProperty(nameof(Observacion.Usuario))]
+        [InverseProperty(nameof(Observacion.Psicologo))]
         public virtual ICollection<Observacion> Observaciones { get; set; }
 
     }

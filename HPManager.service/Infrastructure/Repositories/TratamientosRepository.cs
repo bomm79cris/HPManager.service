@@ -15,27 +15,28 @@ namespace HPManager.service.Infrastructure.Repositories
         }
         public async Task<ICollection<GetTratamientoDto>> GetTratamientosByEstudianteIDAsync(int estudianteID)
         {
-            return await _context.Tratamientos.Where(observacion => observacion.EstudianteID == estudianteID)
-               .Select(observacion => new GetTratamientoDto
+            return await _context.Tratamientos.Where(tratamiento => tratamiento.EstudianteID == estudianteID)
+               .Select(tratamiento => new GetTratamientoDto
                {
-                   Description = observacion.Description,
-                   EstadoID = observacion.EstadoID,
-                   FechaFin = observacion.FechaFin,
-                   FechaInicio = observacion.FechaInicio,
-                   NombreEstado = observacion.EstadoTratamiento.Estado,
-                   Titulo = observacion.Titulo
+                   TratamientoID = tratamiento.TratamientoID,
+                   Description = tratamiento.Description,
+                   EstadoID = tratamiento.EstadoID,
+                   FechaFin = tratamiento.FechaFin,
+                   FechaInicio = tratamiento.FechaInicio,
+                   NombreEstado = tratamiento.EstadoTratamiento.Estado,
+                   Titulo = tratamiento.Titulo
 
                })
                .ToListAsync();
         }
         public async Task<int> CambiarEstadoDeUnTratamientoAsync(int newEstadoId, int tratamientoId)
         {
-            var tratamiento = _context.Tratamientos.Where(tratamiento => tratamiento.TratamientoID == tratamientoId).FirstOrDefault();
+            var tratamiento = GetTratamientoByIdAsync(tratamientoId);
             tratamiento.EstadoID = newEstadoId;
 
             return await _context.SaveChangesAsync();
         }
-        public async Task<Tratamiento> CrearTratamientoParaUnEstudiante(NewTratamientoDto newTratamiento)
+        public async Task<Tratamiento> CrearTratamientoParaUnEstudianteAsync(NewTratamientoDto newTratamiento)
         {
             var tratamiento = new Tratamiento
             {
@@ -45,17 +46,19 @@ namespace HPManager.service.Infrastructure.Repositories
                 FechaInicio = newTratamiento.FechaInicio,
                 FechaFin = newTratamiento.FechaFin,
                 PsicologoID = newTratamiento.PsicologoID,
-                Titulo = newTratamiento.Titulo
+                Titulo = newTratamiento.Titulo,
+                created_at = DateTime.Now
 
 
             };
 
             await _context.AddAsync( tratamiento );
+            await _context.SaveChangesAsync();
             return tratamiento;
         }
-        public async Task<UpdateTratamientoDto> EditarTratamientoParaUnEstudiante(UpdateTratamientoDto newTratamiento, int tratamientoID)
+        public async Task<UpdateTratamientoDto> EditarTratamientoParaUnEstudianteAsync(UpdateTratamientoDto newTratamiento, int tratamientoID)
         {
-            var tratamiento = _context.Tratamientos.Where(tratamiento => tratamiento.TratamientoID == tratamientoID).FirstOrDefault();
+            var tratamiento = GetTratamientoByIdAsync(tratamientoID);
             tratamiento.Titulo = newTratamiento.Titulo;
             tratamiento.Description = newTratamiento.Description;
             tratamiento.FechaInicio = newTratamiento.FechaInicio;
@@ -64,11 +67,15 @@ namespace HPManager.service.Infrastructure.Repositories
             await _context.SaveChangesAsync();
             return newTratamiento;
         }
-        public async Task<int> DeleteTratamientoParaUnEstudiante(int tratamientoID)
+        public async Task<int> DeleteTratamientoParaUnEstudianteAsync(int tratamientoID)
         {
-            var tratamiento = _context.Tratamientos.Where(tratamiento => tratamiento.TratamientoID == tratamientoID).FirstOrDefault();
+            var tratamiento = GetTratamientoByIdAsync(tratamientoID);
             _context.Remove(tratamiento);
             return await _context.SaveChangesAsync();
+        }
+        private  Tratamiento GetTratamientoByIdAsync(int tratamientoId)
+        {
+            return _context.Tratamientos.Where(tratamiento => tratamiento.TratamientoID == tratamientoId).FirstOrDefault();
         }
 
     }

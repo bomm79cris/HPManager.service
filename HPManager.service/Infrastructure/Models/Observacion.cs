@@ -13,10 +13,10 @@ namespace HPManager.service.Infrastructure.Models
         public string Descripcion { get; set; }
         public DateTime Fecha { get; set; }
         public string Observaciones { get; set; }
-        public DateTime CreatedAt { get; set; } 
+        public DateTime created_at { get; set; } 
 
         [ForeignKey(nameof(EstudianteID))]
-        public virtual Usuario Usuario { get; set; }
+        public virtual Estudiante Estudiante { get; set; }
         [ForeignKey(nameof(PsicologoID))]
         public virtual Psicologo Psicologo { get; set; }
     }

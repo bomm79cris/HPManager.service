@@ -13,7 +13,7 @@ namespace HPManager.service.Infrastructure.Models
         public int EstudianteID { get; set; }
         public DateTime Fecha { get; set; }
         public string Recomendacion { get; set; }
-        public DateTime CreatedAt { get; set; } 
+        public DateTime created_at { get; set; } 
 
         [ForeignKey(nameof(DocenteID))]
         public virtual Docente Docente { get; set; }
