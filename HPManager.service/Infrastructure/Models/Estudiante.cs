@@ -30,7 +30,7 @@ namespace HPManager.service.Infrastructure.Models
         public virtual ICollection<Cita> Citas { get; set; }
         [InverseProperty(nameof(Tratamiento.Estudiante))]
         public virtual ICollection<Tratamiento> Tratamientos { get; set; }
-        [InverseProperty(nameof(Observacion.Usuario))]
+        [InverseProperty(nameof(Observacion.Estudiante))]
         public virtual ICollection<Observacion> Observaciones { get; set; }
         [InverseProperty(nameof(Sesion.Estudiante))]
         public virtual ICollection<Sesion> Sesiones { get; set; }

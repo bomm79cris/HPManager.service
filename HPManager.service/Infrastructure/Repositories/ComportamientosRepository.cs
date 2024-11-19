@@ -1,11 +1,13 @@
 using HPManager.service.Infrastructure.Dtos;
 using HPManager.service.Infrastructure.Models;
 using HPManager.service.Infrastructure.Repositories.IRepositories;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.EntityFrameworkCore;
 
 namespace HPManager.service.Infrastructure.Repositories
 {
-    public class ComportamientosRepository() : IComportamientosRepository
+    public class ComportamientosRepository : IComportamientosRepository
     {
         private readonly ApplicationDbContext _context;
 
@@ -14,24 +16,56 @@ namespace HPManager.service.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task CrearComportamientoAsync(SaveComportamientoDto comportamiento)
+        public async Task<Comportamiento> CrearComportamientoAsync(SaveComportamientoDto comportamiento)
         {
-            await _context.Comportamientos.AddAsync(comportamiento);
+            var comportamientoNuevo = new Comportamiento
+            {
+                Fecha = comportamiento.Fecha,
+                DocenteID = comportamiento.DocenteID,
+                EstudianteID = comportamiento.EstudianteID,
+                Observaciones = comportamiento.Observaciones,
+                created_at = DateTime.Now
+            };
+            await _context.Comportamientos.AddAsync(comportamientoNuevo);
             await _context.SaveChangesAsync();
+            return comportamientoNuevo;
         }
 
-        public async Task<List<ComportamientoDto>> ObtenerComportamientosPorEstudianteAsync(int estudianteId)
+        public async Task<List<ComportamientoDto>> ObtenerComportamientosPorEstudianteAsync(int estudianteId,int userID)
         {
             return await _context.Comportamientos
-                .Where(c => c.EstudianteId == estudianteId)
+                .Where(c => c.EstudianteID == estudianteId).Select(c=>
+                new ComportamientoDto
+                {
+                    ComportamientoID = c.ComportamientoID,
+                    CreatedAt = c.created_at,
+                    Fecha = c.Fecha,
+                    DocenteID= c.DocenteID,
+                    Observaciones = c.Observaciones,
+                    DocenteFullName = c.Docente.Usuario.Nombre + " " + c.Docente.Usuario.Nombre,
+                    SoyElCreador = (c.DocenteID==userID)
+
+                })
                 .ToListAsync();
         }
-        public async Task<List<ComportamientoDto>> ObtenerComportamientosPorDocenteAsync(int docenteId)
+        public async Task<Comportamiento> UpdateComportamiento(int idComportamiento, string newObservation)
         {
-            return await _context.Comportamientos
-                .Where(c => c.DocenteId == docenteId)
-                .ToListAsync();
+            var comportamiento = await _context.Comportamientos.Where(c=> c.ComportamientoID==idComportamiento).FirstOrDefaultAsync();
+            comportamiento.Observaciones = newObservation;
+            
+            await _context.SaveChangesAsync();
+            return comportamiento;
+
         }
+
+        public async Task<int> DeleteComportamientoAsync(int idComportamiento)
+        {
+            var comportamiento = await _context.Comportamientos.Where(c => c.ComportamientoID == idComportamiento).FirstOrDefaultAsync();
+                    _context.Remove(comportamiento);
+            return await _context.SaveChangesAsync();
+            
+        }
+
 
 
     }

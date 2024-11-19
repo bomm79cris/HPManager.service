@@ -1,5 +1,6 @@
 using HPManager.service.Infrastructure.Dtos;
 using HPManager.service.Infrastructure.Managers.IManagers;
+using HPManager.service.Infrastructure.Models;
 using HPManager.service.Infrastructure.Repositories.IRepositories;
 namespace HPManager.service.Infrastructure.Managers
 {
@@ -14,19 +15,23 @@ namespace HPManager.service.Infrastructure.Managers
                 _repository = repository;
             }
 
-            public async Task CrearComportamientoAsync(SaveComportamientoDto comportamiento)
+            public async Task<Comportamiento> CrearComportamientoAsync(SaveComportamientoDto comportamiento)
             {
-                await _repository.CrearComportamientoAsync(comportamiento);
+               return await _repository.CrearComportamientoAsync(comportamiento);
             }
 
-            public async Task<List<ComportamientoDto>> ObtenerComportamientosPorEstudianteAsync(int estudianteId)
+            public async Task<List<ComportamientoDto>> ObtenerComportamientosPorEstudianteAsync(int estudianteId, int userId)
             {
-                return await _repository.ObtenerComportamientosPorEstudianteAsync(estudianteId);
+                return await _repository.ObtenerComportamientosPorEstudianteAsync(estudianteId, userId);
             }
 
-            public async Task<List<ComportamientoDto>> ObtenerComportamientosPorDocenteAsync(int docenteId)
+            public async Task<Comportamiento> UpdateComportamiento(int idComportamiento, string newObservation)
             {
-                return await _repository.ObtenerComportamientosPorDocenteAsync(docenteId);
+                return await _repository.UpdateComportamiento(idComportamiento,newObservation);
+            }
+            public async Task<int> DeleteComportamientoAsync(int idComportamiento)
+            {
+                return await _repository.DeleteComportamientoAsync(idComportamiento);
             }
         }
 

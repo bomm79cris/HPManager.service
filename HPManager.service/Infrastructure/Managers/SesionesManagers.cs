@@ -1,5 +1,6 @@
 using HPManager.service.Infrastructure.Dtos;
 using HPManager.service.Infrastructure.Managers.IManagers;
+using HPManager.service.Infrastructure.Models;
 using HPManager.service.Infrastructure.Repositories.IRepositories;
 namespace HPManager.service.Infrastructure.Managers
 {
@@ -12,9 +13,9 @@ namespace HPManager.service.Infrastructure.Managers
             _repository = repository;
         }
 
-        public async Task CrearSesionAsync(SaveSesionesDto sesion)
+        public async Task<Sesion> CrearSesionAsync(SaveSesionesDto sesion)
         {
-            await _repository.CrearSesionAsync(sesion);
+           return await _repository.CrearSesionAsync(sesion);
         }
 
         public async Task<List<SesionesDto>> ObtenerSesionesPorPsicologoAsync(int psicologoId)
@@ -27,14 +28,14 @@ namespace HPManager.service.Infrastructure.Managers
             return await _repository.ObtenerSesionesAEstudianteAsync(estudianteId);
         }
 
-        public async Task EditarSesionAsync(SaveSesionesDto sesion)
+        public async Task<Sesion> EditarSesionAsync(int sesionId, SaveSesionesDto sesion)
         {
-            await _repository.EditarSesionAsync(sesion);
+            return await _repository.EditarSesionAsync(sesionId,sesion);
         }
 
-        public async Task EliminarSesionAsync(int sesionId)
+        public async Task<int> EliminarSesionAsync(int sesionId)
         {
-            await _repository.EliminarSesionAsync(sesionId);
+            return await _repository.EliminarSesionAsync(sesionId);
         }
     }
 }

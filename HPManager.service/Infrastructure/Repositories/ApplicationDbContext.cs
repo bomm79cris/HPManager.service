@@ -5,9 +5,12 @@ namespace HPManager.service.Infrastructure.Repositories
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
+        private readonly IConfiguration _configuration;
 
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IConfiguration configuration)
+       : base(options)
+        {
+            _configuration = configuration;
         }
         public DbSet<RolUsuario> RolUsuarios { get; set; }
         public DbSet<Usuario> Usuarios { get; set; }
@@ -23,5 +26,14 @@ namespace HPManager.service.Infrastructure.Repositories
         public DbSet<Sesion> Sesiones { get; set; }
         public DbSet<Comportamiento> Comportamientos { get; set; }
         public DbSet<Recomendation> Recomendaciones { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(_configuration.GetConnectionString("ApplicationDbContext"))
+                .UseLazyLoadingProxies();
+            }
+        }
     }
+
 }

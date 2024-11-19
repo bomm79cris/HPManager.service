@@ -19,9 +19,11 @@ namespace HPManager.service.Infrastructure.Models
         public string Apellido { get; set; }
         public string Email { get; set; }
         public string Contrasena { get; set; }
-        public int RolId { get; set; }
+        public string Genero { get; set; }
+        public int Edad {  get; set; }
+        public int RolID { get; set; }
         public DateTime Created_at { get; set; }
-        [ForeignKey(nameof(RolId))]
+        [ForeignKey(nameof(RolID))]
         public virtual RolUsuario Rol { get; set; }
         [InverseProperty(nameof(Docente.Usuario))]
         public virtual ICollection<Docente> Docentes { get; set; }

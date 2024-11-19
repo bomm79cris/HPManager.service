@@ -9,6 +9,5 @@ namespace HPManager.service.Infrastructure.Dtos
         public string Descripcion { get; set; }
         public string ObjetivoAlcanzado { get; set; }
         public string AspectosAMejorar { get; set; }
-        public DateTime CreatedAt { get; set; }
     }
 }

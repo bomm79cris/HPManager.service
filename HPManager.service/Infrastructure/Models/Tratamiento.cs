@@ -15,7 +15,7 @@ namespace HPManager.service.Infrastructure.Models
         public DateTime FechaInicio { get; set; }
         public DateTime? FechaFin { get; set; } 
         public int EstadoID { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime created_at { get; set; }
 
         [ForeignKey(nameof(EstudianteID))]
         public virtual Estudiante Estudiante { get; set; }
