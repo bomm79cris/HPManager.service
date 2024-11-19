@@ -41,7 +41,7 @@ namespace HPManager.service.Controllers
         [ProducesResponseType(typeof(Comportamiento), (int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> UpdateComportamiento(int idComportamiento, [FromBody] string newObservation)
+        public async Task<IActionResult> UpdateComportamiento(int idComportamiento, [FromQuery] string newObservation)
         {
             var updatedComportamiento = await _comportamientosManager.UpdateComportamiento(idComportamiento, newObservation);
             return Ok(updatedComportamiento);
