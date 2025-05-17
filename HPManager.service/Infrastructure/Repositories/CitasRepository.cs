@@ -66,12 +66,12 @@ namespace HPManager.service.Infrastructure.Repositories
             return await _context.SaveChangesAsync();
 
         }
-        public async Task<Cita> CreateNewCitaAsync(Cita newCita)
+        public async Task<int> CreateNewCitaAsync(Cita newCita)
         {
           
             await _context.AddAsync(newCita);
             await _context.SaveChangesAsync();
-            return newCita;
+            return newCita.CitaID;
 
         }
         public async Task<int> CambiarEstadoCitaAsync(int citaId, int newEstadoCitaId)

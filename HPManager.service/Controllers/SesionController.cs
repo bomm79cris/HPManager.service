@@ -54,7 +54,7 @@ namespace HPManager.service.Controllers
         public async Task<IActionResult> EditarSesion(int sesionId, [FromBody] SaveSesionesDto sesionEditada)
         {
             var sesion = await _sesionesManager.EditarSesionAsync(sesionId, sesionEditada);
-            return Ok(sesion);
+            return Ok();
         }
 
         [HttpDelete("{sesionId}")]

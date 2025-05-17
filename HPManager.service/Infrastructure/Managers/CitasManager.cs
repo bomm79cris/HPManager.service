@@ -18,7 +18,7 @@ namespace HPManager.service.Infrastructure.Managers
             _usuarioRepository = usuarioRepository;
         }
 
-        public async Task<Cita> CreateNewCitaAsync(CitasDto newCitaDto)
+        public async Task<int> CreateNewCitaAsync(CitasDto newCitaDto)
         {
             // Validar si el creador es estudiante o psicólogo
             var creador = await _usuarioRepository.GetUsuarioById(newCitaDto.CreateBy);
@@ -42,8 +42,8 @@ namespace HPManager.service.Infrastructure.Managers
                 DebeIrPadre = newCitaDto.DebeIrPadre
             };
 
-            await _repository.CreateNewCitaAsync(nuevaCita);
-            return nuevaCita;
+            
+            return await _repository.CreateNewCitaAsync(nuevaCita); 
         }
 
         public async Task<int> CambiarEstadoCitaAsync(int citaID, int nuevoEstadoID)
@@ -60,7 +60,7 @@ namespace HPManager.service.Infrastructure.Managers
                 throw new HPException("El estado especificado no es válido.");
 
             // Validar reglas de negocio según el estado actual y el usuario
-            switch ((EstadoCitaEnum)nuevoEstadoID)
+            /*switch ((EstadoCitaEnum)nuevoEstadoID)
             {
                 case EstadoCitaEnum.CANCELADA:
                     if (cita.CreateBy != usuarioActual.UsuarioId)
@@ -79,7 +79,7 @@ namespace HPManager.service.Infrastructure.Managers
                 default:
                     throw new HPException("El cambio de estado solicitado no está permitido.");
             }
-
+            */
             // Actualizar el estado de la cita
             cita.EstadoID = nuevoEstadoID;
            return await _repository.CambiarEstadoCitaAsync(citaID, nuevoEstadoID);
@@ -112,9 +112,9 @@ namespace HPManager.service.Infrastructure.Managers
             if (cita == null)
                 throw new HPException("La cita especificada no existe.");
 
-            if (cita.CreateBy != cita.Usuario.UsuarioId)
+            /*if (cita.CreateBy != cita.Usuario.UsuarioId)
                 throw new HPException("Solo el creador de la cita puede eliminarla.");
-
+            */
             return await _repository.DeleteCitasByIdAsync(citaID);
         }
 
